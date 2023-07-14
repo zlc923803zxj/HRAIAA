@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户需求</title>
+</head>
+<body>
+    <h1>用户需求</h1>
+    {% if user_needs %}
+        <ul>
+        {% for need in user_needs %}
+            <li>{{ need }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>没有找到任何用户需求。</p>
+    {% endif %}
+</body>
+</html>

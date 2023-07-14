@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AI Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'ai_assistant/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #headerContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #F7F7F7;
+        }
+
+        #headerContainer h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #spacer {
+        height: 50px; /* 调整这个值，使其等于或稍大于输入框的高度 */
+    }
+    </style>
+</head>
+<body>
+    <!-- 添加一个固定位置的容器作为页面顶部 -->
+    <div id="headerContainer">
+        <h1 id="aiStatus">人工智能家装助手</h1>
+    </div>
+
+    <!-- 把 chatbox 放在 chatForm 的外面，这样输入框会显示在聊天记录的下方 -->
+    <div id="username" style="display: none;" class="name">{{ username }}</div>
+    <div id="chatbox">
+        <!-- Chat logs will be appended here. -->
+        <div id="spacer"></div> <!-- 添加这一行 -->
+    </div>
+
+    <!-- 使得 chatForm 填充宽度，并且让它在底部 -->
+    <form id="chatForm" onsubmit="return false;">
+        <!-- 为输入区添加一个新的容器，以便我们可以方便的控制它的样式 -->
+        <div id="inputContainer">
+            <textarea id="userInput"></textarea>
+            <button id="send-btn">发送</button>
+        </div>
+    </form>
+
+    <script src="{% static 'ai_assistant/chat.js' %}"></script>
+</body>
+</html>

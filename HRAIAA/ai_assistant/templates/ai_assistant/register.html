@@ -1,0 +1,170 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #fff;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 将表单内容居中对齐 */
+        width: 350px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        height: 30px; /* 增加输入框的高度 */
+        padding: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: white;
+    }
+
+    input[type="submit"] {
+        margin-top: 30px;
+        width: 100%;
+        height: 45px;
+        color: #fff;
+        background-color: #10A37F;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .center-align {
+        text-align: center;
+    }
+
+    #messageBox {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fefefe;
+        height: 120px;
+        width: 200px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+    #messageBox p{
+
+    }
+    #messageBox button {
+        background-color: #10A37F;
+        height: 30px;
+        width: 45px;
+        color: #fff;
+        border: none; /* 无边框 */
+        border-radius: 4px;
+
+    }
+</style>
+<body>
+<head>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+</head>
+<form method="post" id="registrationForm">
+    {% csrf_token %}
+    <div class="center-align">
+        <h2>创建您的账户</h2>
+    </div>
+    <label for="id_username" style="margin-bottom: 10px; align-self: flex-start;">用户名</label>
+    {{ form.username }}
+    <label for="id_password1" style="margin-bottom: 10px; align-self: flex-start;">密码</label>
+    {{ form.password1 }}
+    <label for="id_password2" style="margin-bottom: 10px; align-self: flex-start;">密码确认</label>
+    {{ form.password2 }}
+    <input type="submit" value="注册">
+</form>
+
+<div id="messageBox" style="display: none;">
+    <p id="messageText"></p>
+    <button id="okButton">OK</button>
+    <button id="loginButton" style="display: none;">登录</button>
+</div>
+</body>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // 阻止表单的默认提交行为
+
+        var password1 = document.getElementById('id_password1').value;
+        var password2 = document.getElementById('id_password2').value;
+
+        if (password1 !== password2) {
+            showMessage('两次密码输入不一致');
+            return;
+        }
+
+        let csrfToken = document.querySelector('[name=csrf-token]').content;
+
+        // 提交表单后使用fetch API获取返回的JSON
+        fetch('/register/', {
+    method: 'POST',
+    body: new FormData(event.target),
+    headers: {
+        'X-CSRFToken': csrfToken
+    },
+}).then(response => response.json()).then(data => {
+    if (data.status === 'fail') {
+        if (data.errors) {
+            // 错误消息是 JSON 格式，我们需要将其解析为对象
+            const errors = JSON.parse(data.errors);
+            let messages = '';
+
+            // 遍历每个字段的错误
+            for (let field in errors) {
+                // 遍历字段中的每个错误消息
+                errors[field].forEach(error => {
+                    // 把每个错误添加到消息字符串中
+                    messages += `${error.message}\n`;
+                });
+            }
+
+            // 展示消息字符串
+            showMessage(messages);
+        } else {
+            showMessage(data.message);
+        }
+    } else if (data.status === 'success') {
+        showMessage('注册成功，是否登录？', true);
+        document.getElementById('loginButton').style.display = 'block';
+    }
+});
+    });
+
+    document.getElementById('okButton').addEventListener('click', function () {
+        document.getElementById('messageBox').style.display = 'none';
+    });
+
+    function showMessage(message, isSuccess = false) {
+        document.getElementById('messageText').innerText = message;
+        document.getElementById('messageBox').style.display = 'flex';
+        document.getElementById('loginButton').style.display = isSuccess ? 'block' : 'none';
+        document.getElementById('okButton').style.display = isSuccess ? 'none' : 'block';
+    }
+    document.getElementById('loginButton').addEventListener('click', function () {
+        window.location.href = '/login';
+    });
+</script>
+{% endblock %}

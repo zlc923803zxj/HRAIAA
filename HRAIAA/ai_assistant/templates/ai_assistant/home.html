@@ -1,0 +1,59 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <style>
+    body {
+      overflow: hidden;
+    }
+
+    .welcome-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+      .welcome-text1 {
+      margin-top: 30px; /* 减小上方间隔 */
+      margin-bottom: 10px; /* 减小下方间隔 */
+      font-size: 32px;
+        height: 30px;
+    }
+    .welcome-text {
+      margin-bottom: 40px;
+      font-size: 32px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+
+    .button-container a {
+      font-size: 20px;
+      text-decoration: none; /* 取消下划线 */
+      background-color: #10A37F; /* 背景颜色 */
+      width: 60px; /* 按钮宽度 */
+      height: 30px; /* 按钮高度 */
+      border: 2px solid ; /* 边框样式 */
+      border-radius: 10px; /* 弧形边框半径 */
+      padding: 5px 10px; /* 按钮内边距 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff; /* 文字颜色 */
+      border: none; /* 取消边框 */
+    }
+  </style>
+
+  <div class="welcome-container">
+    <h2 class="welcome-text1">欢迎来到</h2>
+    <h2 class="welcome-text">人工智能家装助手</h2>
+    <div class="button-container">
+      <a href="{% url 'login' %}">登录</a>
+      <a href="{% url 'register' %}">注册</a>
+    </div>
+  </div>
+{% endblock %}

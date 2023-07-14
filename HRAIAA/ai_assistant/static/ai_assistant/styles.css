@@ -1,0 +1,155 @@
+/* 设定全局基本样式 */
+body {
+    font-family: Arial, sans-serif; /* 设置全局字体为Arial，无此字体时使用系统默认无衬线字体 */
+    margin: 0; /* 无全局边距 */
+    padding: 0; /* 无全局内边距 */
+    background-color: #eee; /* 页面背景色为白色 */
+    display: flex; /* 使用弹性布局 */
+    flex-direction: column; /* 主轴方向为从上到下 */
+    justify-content: center; /* 主轴对齐方式为居中 */
+    align-items: center; /* 交叉轴对齐方式为居中 */
+    min-height: 100vh; /* 页面最小高度为视口高度，确保内容在视口垂直居中 */
+}
+
+/* 聊天框的样式 */
+#chatbox {
+    overflow: auto; /* 如果内容过多，会出现滚动条 */
+    padding: 10px; /* 内边距10px */
+    box-sizing: border-box; /* width 和 height 属性包括内容、内边距和边框，但不包括外边距 */
+    width: 90%; /* 聊天框宽度为页面宽度的90% */
+    max-width: 800px; /* 聊天框最大宽度为800px */
+    margin-top: 30px; /* 聊天框距离页面顶部30px */
+    padding-bottom: 80px; /* 聊天框底部内边距60px，为输入框留出空间 */
+    display: flex; /* 使用弹性布局 */
+    flex-direction: column; /* 主轴方向为从上到下 */
+    justify-content: center; /* 主轴对齐方式为居中 */
+
+}
+
+/* 消息的样式 */
+.message-wrapper {
+    display: flex; /* 使用弹性布局 */
+    flex-direction: row; /* 主轴方向为从上到下 */
+    justify-content: flex-start; /* 主轴对齐方式为从顶部开始 */
+    align-items: flex-start; /* 交叉轴对齐方式为从左边开始 */
+    margin-bottom: 20px; /* 消息与下一条消息之间距离20px */
+    width: 100%; /* 消息宽度占满父容器 */
+    max-width: 600px;  /* 消息最大宽度为600px */
+    margin: auto;  /* 通过自动外边距实现在父容器中水平居中 */
+
+}
+
+/* 消息内容的样式 */
+.chat-msg {
+    display: flex; /* 使用弹性布局 */
+    flex-direction: column; /* 主轴方向为从上到下 */
+    justify-content: flex-start; /* 主轴对齐方式为从顶部开始 */
+    align-items: center;  /* 交叉轴对齐方式为居中 */
+    padding: 10px; /* 内边距10px */
+    border-radius: 10px; /* 边框圆角10px */
+    max-width: 100%; /* 消息内容最大宽度为父容器的70% */
+
+}
+
+/* 用户名的样式 */
+.chat-msg-user {
+    font-weight: bold; /* 用户名字体为粗体 */
+    width: 55px; /* 图片宽度设为100px */
+    height: auto; /* 图片高度自动，以保持比例 */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 15px;
+}
+pre {
+    background-color: #050505;  /* 设置背景色为深色 */
+    color: #fff;  /* 设置文字颜色为白色 */
+    padding: 10px;  /* 设置内边距为10px */
+    border-radius: 5px;  /* 设置圆角为5px */
+
+    white-space: pre-wrap;  /* 保留换行符，但是会进行自动换行 */
+    word-wrap: break-word;  /* 允许单词在边界处断开 */
+    font-weight: bold;
+}
+/* 消息文本的样式 */
+.chat-msg-text {
+    line-height: 2; /* 消息文本行高为1.5 */
+    padding: 10px;
+}
+
+/* 用户消息的样式 */
+.chat-msg.user {
+    background-color: #fff; /* 用户消息背景色为#DCF8C6 */
+    margin-bottom: 20px; /* 消息与下一条消息之间距离20px */
+    min-height: 180px;
+}
+
+/* AI消息的样式 */
+.chat-msg.ai {
+    background-color: #fff; /* AI消息背景色为#F0F0F0 */
+    margin-bottom: 20px; /* 消息与下一条消息之间距离20px */
+    min-height: 180px;
+}
+.name{
+    font-weight: bold; /* 用户名字体为粗体 */
+
+}
+.ai-img {
+    width: 55px; /* 图片宽度设为100px */
+    height: auto; /* 图片高度自动，以保持比例 */
+
+}
+/* 输入框容器的样式 */
+#chatForm {
+    padding: 10px; /* 内边距10px */
+    box-sizing: border-box; /* width 和 height 属性包括内容、内边距和边框，但不包括外边距 */
+    width: 90%; /* 输入框容器宽度为页面宽度的90% */
+    max-width: 800px; /* 输入框容器最大宽度为800px */
+    position: fixed; /* 输入框容器位置固定 */
+    bottom: 10px; /* 输入框容器位于页面底部 */
+    left: 50%; /* 输入框容器左侧位于页面的50%，与 transform: translateX(-50%); 配合可以实现水平居中 */
+    transform: translateX(-50%); /* 输入框容器左移自身宽度的50%，配合 left: 50%; 可以实现水平居中 */
+
+}
+
+/* 输入框和发送按钮的容器样式 */
+#inputContainer {
+    width: 100%; /* 输入框和发送按钮的容器宽度为100% */
+    padding: 5px; /* 内边距5px */
+    box-sizing: border-box; /* width 和 height 属性包括内容、内边距和边框，但不包括外边距 */
+    border: 1px solid #ddd; /* 边框1px，颜色为#ddd */
+    border-radius: 10px; /* 边框圆角4px */
+    display: flex; /* 使用弹性布局 */
+    align-items: center;
+    position: relative; /* 位置为相对定位 */
+    height: auto;
+    background-color: #fff;
+}
+
+/* 输入框的样式 */
+#userInput {
+    width: 90%; /* 输入框宽度为父容器的85% */
+    border: none; /* 无边框 */
+    resize: none; /* 无法调整大小 */
+    outline: none; /* 聚焦时无轮廓线 */
+    font-size: 16px; /* 字体大小18px */
+    max-height: 200px; /* 最大高度，防止输入框过高 */
+    overflow: auto;    /* 高度超过最大高度时出现滚动条 */
+    height: 30px; /* 假设你的输入框高度为20px */
+    line-height: 30px; /* 使得单行文本垂直居中 */
+
+}
+
+/* 发送按钮的样式 */
+#send-btn {
+    width: 10%; /* 发送按钮宽度为父容器的15% */
+    border: none; /* 无边框 */
+    height: 45px;
+    background-color: #10A37F; /* 背景色为#0B93F6 */
+    color: #fff; /* 字体颜色为白色 */
+    padding: 10px; /* 内边距10px */
+    cursor: pointer; /* 鼠标悬停时变为手形 */
+    font-size: 18px; /* 字体大小18px */
+    border-radius: 10px; /* 边框圆角4px */
+
+}
